@@ -1,6 +1,8 @@
 # BinaryTreeVisualizator
 
-Projeto de visualização de uma árvore binária, sua criação e estrutura de forma simples e intuitiva
+Study project for visualization of binary trees, simple and intuitive, made to facilitate the understanding of binary trees
+
+You can access [here](binary-tree-visualizator)
 
 # Example:
 
