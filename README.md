@@ -1,6 +1,10 @@
 # BinaryTreeVisualizator
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.3.
+Projeto de visualização de uma árvore binária, sua criação e estrutura de forma simples e intuitiva
+
+# Example:
+
+![image](https://github.com/Swellshinider/BinaryTreeVisualization/assets/49756870/ce7d912c-dbbb-4f78-94e6-e2ceef76680a)
 
 ## Development server
 
