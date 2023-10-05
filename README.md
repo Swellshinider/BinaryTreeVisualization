@@ -2,7 +2,7 @@
 
 Study project for visualization of binary trees, simple and intuitive, made to facilitate the understanding of binary trees
 
-You can access [here](binary-tree-visualizator)
+You can access [here](https://binary-tree-visualizator.netlify.app)
 
 # Example:
 
