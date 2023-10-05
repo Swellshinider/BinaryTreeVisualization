@@ -102,6 +102,12 @@ export class AppComponent implements OnInit {
 
   changeNodeSize(event: any): void {
     const value = parseInt(event.target.value, 10);
+
+    if (value < 0) {
+      alert("Existe tamanho negativo??");
+      return;
+    }
+
     this.nodeSize = value;
     this.updateCanvas();
   }
@@ -148,7 +154,7 @@ export class AppComponent implements OnInit {
     const canva = this.canvasBoard.nativeElement.getContext('2d', undefined) as CanvasRenderingContext2D;
     canva.clearRect(0, 0, canva.canvas.width, canva.canvas.height);
 
-    this.drawGrid(canva, this.nodeSize * 0.5, '#CCC');
+    this.drawGrid(canva, 25, '#CCC');
 
     if (this.root)
       this.root.draw(canva, this.spacingValue, this.canvasBoard.nativeElement.width, this.nodeSize, this.canvasBoard.nativeElement.height);
