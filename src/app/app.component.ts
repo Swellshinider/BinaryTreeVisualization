@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Node } from './components/models/node.model';
 
 @Component({
@@ -27,15 +27,18 @@ export class AppComponent implements AfterViewInit {
   private root: Node | null = null;
 
   ngAfterViewInit(): void {
+    this.onResize();
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
     const canva = this.canvasBoard.nativeElement.getContext('2d', undefined) as CanvasRenderingContext2D;
     const windowWidth: number = window.innerWidth;
 
     canva.canvas.height = windowWidth - 255;
     canva.canvas.width = windowWidth - 255;
-
-    this.drawGrid(canva, this.nodeSize * 0.5, '#CCC');
+    this.updateCanvas();
   }
-
 
   validarTecla(event: any) {
     var tecla = event.key || String.fromCharCode(event.keyCode);
