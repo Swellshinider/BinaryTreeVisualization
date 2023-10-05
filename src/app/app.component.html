@@ -14,27 +14,32 @@
 <section class="board-container">
     <section class="container">
 
-        <aside *ngIf="configOpen" class="lateral">
+        <aside class="lateral">
+
+            <!-- Input -->
             <article class="title-container">
                 <span class="title">Input</span>
             </article>
             <section class="block">
                 <span class="text">New value: </span>
                 <input #valueInput type="number" (keypress)="validarTecla($event)">
-                <button (click)="sendInput()">Enter</button>
+                <button (click)="sendInput()">Add</button>
+                <button (click)="clearTree()">Clear</button>
             </section>
-
+            
+            <!-- Generation -->
             <article class="title-container">
                 <span class="title">Generate</span>
             </article>
             <section class="block">
                 <span class="text">Quandidade(int): </span>
-                <input #valueBoardWidth type="number" [value]="genQuantity" (keypress)="validarTecla($event)">
+                <input #valueBoardWidth type="number" [value]="genQuantity" (change)="changeGeneratingQuantity($event)" (keypress)="validarTecla($event)">
                 <span class="text">Delay(ms): </span>
-                <input #valueBoardWidth type="number" [value]="genDelay" (keypress)="validarTecla($event)">
+                <input #valueBoardWidth type="number" [value]="genDelay" (change)="changeDelaySpeed($event)" (keypress)="validarTecla($event)">
                 <button (click)="generateRandom()">Generate random</button>
             </section>
 
+            <!-- Board configuration -->
             <article class="title-container">
                 <span class="title">Configuration</span>
             </article>
@@ -49,24 +54,15 @@
             </section>
             <section class="block">
                 <span class="text">Board Size(px): </span>
-                <input #valueBoardWidth type="number" (change)="changeBoardWidth($event)" [value]="boardWidth"
-                    (keypress)="validarTecla($event)">
-                <input #valueBoardHeight type="number" (change)="changeBoardHeight($event)" [value]="boardHeight"
+                <input #valueBoardWidth type="number" (change)="changeBoardSize($event)" [value]="boardSize"
                     (keypress)="validarTecla($event)">
             </section>
-            <!-- section class="block">
-                <button (click)="printTree()">Print</button>
-            </section -->
-
-            <section class="title-container"> </section>
-            <button class="btn-config" (click)="configOpen = !configOpen">Hide configuration</button>
-        </aside>
-
-        <aside *ngIf="!configOpen" class="lateral">
-            <button class="btn-config" (click)="configOpen = !configOpen">Show configuration</button>
         </aside>
 
     </section>
     
-    <canvas #canvasBoard class="board" [width]="boardWidth" [height]="boardHeight"></canvas>
+    <canvas #canvasBoard class="board" [width]="boardSize" [height]="boardSize"
+        (mousedown)="canvasMouseDown($event)"
+        (mousemove)="canvasMouseMove($event)"
+        (mouseup)="canvasMouseUp()"></canvas>
 </section>

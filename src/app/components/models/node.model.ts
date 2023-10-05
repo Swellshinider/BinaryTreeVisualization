@@ -2,7 +2,12 @@ export class Node {
     value: number;
     left: Node | null = null;
     right: Node | null = null;
-    private rec: number[] = [];
+
+    isDragging = false;
+    dragStartX = 0;
+    dragStartY = 0;
+    offsetX = 0;
+    offsetY = 0;
 
     constructor(
         value: number,
@@ -14,8 +19,6 @@ export class Node {
         if (!ctx)
             return;
 
-        ctx.clearRect(0, 0, width, height);
-
         const totalNodes = this.calculateTotalNodes();
         this.drawTree(ctx, width / 2, nodeSize, nodeSize, (totalNodes * spacing) * 2);
     }
@@ -24,12 +27,10 @@ export class Node {
         return this.countNodes(this);
     }
 
-    public toString(): string {
-        this.printTree(this, 0);
-        return this.traverseToString(this);
-    }
-
     private drawTree(ctx: CanvasRenderingContext2D, x: number, y: number, nodeSize: number, xOffset: number): void {
+        x += this.offsetX;
+        y += this.offsetY;
+
         if (this.left) {
             // Left coordinates
             const leftX = x - xOffset;
@@ -66,7 +67,7 @@ export class Node {
         ctx.stroke();
 
         ctx.fillStyle = 'black';
-        ctx.font = '20px Arial';
+        ctx.font = `${nodeSize / 2}px Arial`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(`${this.value}`, x, y);
@@ -92,25 +93,5 @@ export class Node {
         const right = this.traverseToString(node.right);
 
         return `{ value: ${node.value}, left: ${left}, right: ${right} }`;
-    }
-
-    printTree(node: Node | null, depth: number): void {
-        let i: number;
-        if (node === null) return;
-    
-        console.log('\t',);
-        for (i = 0; i < depth; i++) {
-            if (i === depth - 1) {
-                console.log(this.rec[depth - 1] ? '\u0371\u2014\u2014\u2014' : '\u221F\u2014\u2014\u2014');
-            } else {
-                console.log(this.rec[i] ? '\u23B8   ' : '    ');
-            }
-        }
-    
-        console.log(node.value);
-        this.rec[depth] = 1;
-        this.printTree(node.left, depth + 1);
-        this.rec[depth] = 0;
-        this.printTree(node.right, depth + 1);
     }
 }
