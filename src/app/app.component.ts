@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { Node } from './components/models/node.model';
 
 @Component({
@@ -6,7 +6,7 @@ import { Node } from './components/models/node.model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
 
   author: string = 'Eduardo Ribeiro Leal';
   contact: string = '<eduardoleal.contact@gmail.com>';
@@ -23,19 +23,19 @@ export class AppComponent implements OnInit {
   nodeSize: number = 40;
   genQuantity: number = 15;
   spacingValue: number = 10;
-  boardSize: number = 2000;
 
   private root: Node | null = null;
 
-  ngOnInit(): void {
-    this.initGrid();
-  }
-
-  private async initGrid(): Promise<void> {
-    await new Promise<void>((resolve) => { setTimeout(() => { resolve(); }, 1000); });
+  ngAfterViewInit(): void {
     const canva = this.canvasBoard.nativeElement.getContext('2d', undefined) as CanvasRenderingContext2D;
+    const windowWidth: number = window.innerWidth;
+
+    canva.canvas.height = windowWidth - 255;
+    canva.canvas.width = windowWidth - 255;
+
     this.drawGrid(canva, this.nodeSize * 0.5, '#CCC');
   }
+
 
   validarTecla(event: any) {
     var tecla = event.key || String.fromCharCode(event.keyCode);
@@ -55,13 +55,13 @@ export class AppComponent implements OnInit {
 
   sendInput() {
     const value = parseInt(this.valueInput.nativeElement.value, 10);
-    
-    if (value == null || value == undefined || Number.isNaN(value)){
+
+    if (value == null || value == undefined || Number.isNaN(value)) {
       alert("Não, valores nulos não serão aceitos")
       return;
     }
 
-    if (value > 9999 || value < -9999){
+    if (value > 9999 || value < -9999) {
       alert(`Infelizmente o valor ${value} não é aceito, tente um valor entre -9999 e 9999`);
       return;
     }
@@ -86,12 +86,6 @@ export class AppComponent implements OnInit {
   changeDelaySpeed(event: any): void {
     const value = parseInt(event.target.value, 10);
     this.genDelay = value;
-  }
-
-  changeBoardSize(event: any): void {
-    const value = parseInt(event.target.value, 10);
-    this.boardSize = value;
-    this.updateCanvas();
   }
 
   changeSpacing(event: any): void {
@@ -148,9 +142,6 @@ export class AppComponent implements OnInit {
   }
 
   private updateCanvas(): void {
-    this.canvasBoard.nativeElement.width = this.boardSize;
-    this.canvasBoard.nativeElement.height = this.boardSize;
-
     const canva = this.canvasBoard.nativeElement.getContext('2d', undefined) as CanvasRenderingContext2D;
     canva.clearRect(0, 0, canva.canvas.width, canva.canvas.height);
 

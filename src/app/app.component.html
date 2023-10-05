@@ -52,16 +52,13 @@
                 <input #valueSpacing type="number" (change)="changeSpacing($event)" value="10"
                     (keypress)="validarTecla($event)">
             </section>
-            <section class="block">
-                <span class="text">Board Size(px): </span>
-                <input #valueBoardWidth type="number" (change)="changeBoardSize($event)" [value]="boardSize"
-                    (keypress)="validarTecla($event)">
-            </section>
         </aside>
 
     </section>
     
-    <canvas #canvasBoard class="board" [width]="boardSize" [height]="boardSize"
+    <canvas #canvasBoard class="board"
+        [width]="500"
+        [height]="500"
         (mousedown)="canvasMouseDown($event)"
         (mousemove)="canvasMouseMove($event)"
         (mouseup)="canvasMouseUp()"></canvas>
