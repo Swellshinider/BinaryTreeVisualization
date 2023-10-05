@@ -30,6 +30,7 @@ export class Node {
     private drawTree(ctx: CanvasRenderingContext2D, x: number, y: number, nodeSize: number, xOffset: number): void {
         x += this.offsetX;
         y += this.offsetY;
+        ctx.lineWidth = 2;
 
         if (this.left) {
             // Left coordinates

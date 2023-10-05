@@ -35,8 +35,8 @@ export class AppComponent implements AfterViewInit {
     const canva = this.canvasBoard.nativeElement.getContext('2d', undefined) as CanvasRenderingContext2D;
     const windowWidth: number = window.innerWidth;
 
-    canva.canvas.height = windowWidth - 255;
-    canva.canvas.width = windowWidth - 255;
+    canva.canvas.height = windowWidth - 275;
+    canva.canvas.width = windowWidth - 275;
     this.updateCanvas();
   }
 
@@ -159,6 +159,7 @@ export class AppComponent implements AfterViewInit {
     const canvasHeight = ctx.canvas.height;
 
     ctx.strokeStyle = color1;
+    ctx.lineWidth = 1;
 
     for (let x = 0; x < canvasWidth; x += gridSize) {
       ctx.beginPath();
