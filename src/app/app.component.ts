@@ -17,11 +17,15 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('canvasBoard')
   canvasBoard!: ElementRef;
 
+  // Generation
+  genQuantity: number = 15;
+  minValue: number = 0;
+  maxValue: number = 1000;
+
   // Configuration
   configOpen: boolean = false;
   genDelay: number = 500;
   nodeSize: number = 40;
-  genQuantity: number = 15;
   spacingValue: number = 10;
 
   private root: Node | null = null;
@@ -48,7 +52,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   async generateRandom() {
-    const myNumbers = this.generateRandomNumbers(this.genQuantity, 0, 100);
+    const myNumbers = this.generateRandomNumbers(this.genQuantity, this.minValue, this.maxValue);
 
     for (let i = 0; i < myNumbers.length; i++) {
       this.addNumber(myNumbers[i]);

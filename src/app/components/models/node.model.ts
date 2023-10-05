@@ -27,37 +27,41 @@ export class Node {
         return this.countNodes(this);
     }
 
-    private drawTree(ctx: CanvasRenderingContext2D, x: number, y: number, nodeSize: number, xOffset: number): void {
+    private drawTree(
+        ctx: CanvasRenderingContext2D,
+        x: number,
+        y: number,
+        nodeSize: number,
+        xOffset: number
+    ): void {
         x += this.offsetX;
         y += this.offsetY;
         ctx.lineWidth = 2;
 
-        if (this.left) {
-            // Left coordinates
-            const leftX = x - xOffset;
-            const leftY = y + (nodeSize * 2);
+        const totalWidth = this.calculateSubtreeWidth() * 0.3;
 
+        const leftX = x - (xOffset * totalWidth / 2);
+        const rightX = x + (xOffset * totalWidth / 2);
+        const Y = y + (nodeSize * 2);
+
+        if (this.left) {
             ctx.beginPath();
             ctx.strokeStyle = 'red';
             ctx.moveTo(x, y);
-            ctx.lineTo(leftX, leftY);
+            ctx.lineTo(leftX, Y);
             ctx.stroke();
 
-            this.left.drawTree(ctx, leftX, leftY, nodeSize, xOffset - (xOffset / 3));
+            this.left.drawTree(ctx, leftX, Y, nodeSize, xOffset - (xOffset / 3));
         }
 
         if (this.right) {
-            // Right coordinates
-            const rightX = x + xOffset;
-            const rightY = y + (nodeSize * 2);
-
             ctx.beginPath();
             ctx.strokeStyle = 'red';
             ctx.moveTo(x, y);
-            ctx.lineTo(rightX, rightY);
+            ctx.lineTo(rightX, Y);
             ctx.stroke();
 
-            this.right.drawTree(ctx, rightX, rightY, nodeSize, xOffset - (xOffset / 3));
+            this.right.drawTree(ctx, rightX, Y, nodeSize, xOffset - (xOffset / 3));
         }
 
         ctx.beginPath();
@@ -72,6 +76,15 @@ export class Node {
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(`${this.value}`, x, y);
+    }
+
+    private calculateSubtreeWidth(): number {
+        let width = 1;
+
+        if (this.left) width += this.left.calculateSubtreeWidth();
+        if (this.right) width += this.right.calculateSubtreeWidth();
+
+        return width;
     }
 
     private countNodes(node: Node | null): number {
@@ -93,6 +106,10 @@ export class Node {
         const left = this.traverseToString(node.left);
         const right = this.traverseToString(node.right);
 
-        return `{ value: ${node.value}, left: ${left}, right: ${right} }`;
+        return `{ 
+                    value: ${node.value}, 
+                    left: ${left}, 
+                    right: ${right} 
+                }`;
     }
 }

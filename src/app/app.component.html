@@ -33,9 +33,9 @@
             </article>
             <section class="block">
                 <span class="text">Quandidade(int): </span>
-                <input #valueBoardWidth type="number" [value]="genQuantity" (change)="changeGeneratingQuantity($event)" (keypress)="validarTecla($event)">
+                <input type="number" [value]="genQuantity" (change)="changeGeneratingQuantity($event)" (keypress)="validarTecla($event)">
                 <span class="text">Delay(ms): </span>
-                <input #valueBoardWidth type="number" [value]="genDelay" (change)="changeDelaySpeed($event)" (keypress)="validarTecla($event)">
+                <input type="number" [value]="genDelay" (change)="changeDelaySpeed($event)" (keypress)="validarTecla($event)">
                 <button (click)="generateRandom()">Generate random</button>
             </section>
 
@@ -45,11 +45,11 @@
             </article>
             <section class="block">
                 <span class="text">Node Size(int): </span>
-                <input #valueBoardWidth type="number" (change)="changeNodeSize($event)" [value]="nodeSize" (keypress)="validarTecla($event)">
+                <input type="number" (change)="changeNodeSize($event)" [value]="nodeSize" (keypress)="validarTecla($event)">
             </section>    
             <section class="block">
                 <span class="text">Line size multiplier(int): </span>
-                <input #valueSpacing type="number" (change)="changeSpacing($event)" value="10"
+                <input type="number" (change)="changeSpacing($event)" value="10"
                     (keypress)="validarTecla($event)">
             </section>
         </aside>
