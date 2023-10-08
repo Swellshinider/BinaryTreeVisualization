@@ -6,7 +6,7 @@ You can access [here](https://binary-tree-visualizator.netlify.app)
 
 # Example:
 
-![image](https://github.com/Swellshinider/BinaryTreeVisualization/assets/49756870/ce7d912c-dbbb-4f78-94e6-e2ceef76680a)
+![image](https://github.com/Swellshinider/BinaryTreeVisualization/assets/49756870/cfabfa14-a6c7-4799-96d7-52309c90e714)
 
 ## Development server
 
